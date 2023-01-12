@@ -8,48 +8,55 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 //DB configs
-mongoose
-  .connect("mongodb://localhost:27017/mypostsDB")
+ mongoose
+  .set("strictQuery", false)
+  .connect(
+    "mongodb+srv://herestetic:Wuwu3508@cluster0.p7hvudo.mongodb.net/test",
+    {
+      useNewUrlParser: true,
+    }
+  )
   .catch((err) => console.log(err));
 
-const postSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   title: String,
   description: String,
 });
 
-const Post = mongoose.model("Post", postSchema);
+const User = mongoose.model("User", userSchema);
 
 app.get("/", (req, res) => {
   res.send("express is here");
 });
 
 app.post("/create", (req, res) => {
-  const newPost = new Post({
+  console.log("Hello");
+  const newUser = new User({
     title: req.body.title,
     description: req.body.description,
   });
 
-  newPost
+  newUser
     .save()
     .then((doc) => console.log(doc))
     .catch((err) => console.log(err));
 });
 
 app.get("/posts", (req, res) => {
-  Post.find()
+  User.find()
     .then((items) => res.json(items))
     .catch((err) => console.log(err));
 });
 
 app.delete("/delete/:id", (req, res) => {
   console.log(req.params);
-  Post.findByIdAndDelete({ _id: req.params.id })
+  User.findByIdAndDelete({ _id: req.params.id })
     .then((doc) => console.log(doc))
     .catch((err) => console.log(err));
 });
 
 app.put("/update/:id", (req, res) => {
-  Post.findByIdAndUpdate(
+  User.findByIdAndUpdate(
     { _id: req.params.id },
     {
       title: req.body.title,

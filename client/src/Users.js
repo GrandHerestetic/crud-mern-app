@@ -4,7 +4,7 @@ import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 
-function Posts() {
+function Users() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [updatedPost, setUpdatedPost] = useState({
@@ -74,7 +74,7 @@ function Posts() {
 
   return (
     <div style={{ width: "90%", margin: "auto auto", textAlign: "center" }}>
-      <h1>Posts page</h1>
+      <h1>Users page</h1>
       <Button
         variant="outline-dark"
         style={{ width: "100%", marginBottom: "1rem" }}
@@ -84,7 +84,7 @@ function Posts() {
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Update a post</Modal.Title>
+          <Modal.Title>Update a user</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Control
@@ -155,10 +155,12 @@ function Posts() {
           })}
         </>
       ) : (
-        ""
+        <div>
+          <h2>No users</h2>
+        </div>
       )}
     </div>
   );
 }
 
-export default Posts;
+export default Users;

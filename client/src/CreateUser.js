@@ -3,16 +3,16 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function CreatePost() {
+function CreateUser() {
   const navigate = useNavigate();
-  const [post, setPost] = useState({
+  const [user, setUser] = useState({
     title: "",
     description: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPost((prev) => {
+    setUser((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -20,11 +20,12 @@ function CreatePost() {
     });
   };
 
-  const createPost = (e) => {
+  const createUser = (e) => {
     e.preventDefault();
+    console.log(user)
 
     axios
-      .post("/create", post)
+      .post("/create", user)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
@@ -33,30 +34,30 @@ function CreatePost() {
 
   return (
     <div style={{ textAlign: "center", width: "90%", margin: "auto auto" }}>
-      <h1>Create post page</h1>
+      <h1>Create users page</h1>
       <Form>
         <Form.Group>
           <Form.Control
             name="title"
-            value={post.title}
+            value={user.title}
             onChange={handleChange}
             style={{ marginBottom: "1rem" }}
-            placeholder="title"
+            placeholder="Name and Surname"
           />
           <Form.Control
             onChange={handleChange}
             name="description"
-            value={post.description}
+            value={user.description}
             style={{ marginBottom: "1rem" }}
-            placeholder="description"
+            placeholder="Group"
           />
         </Form.Group>
         <Button
-          onClick={createPost}
+          onClick={createUser}
           variant="outline-success"
           style={{ width: "100%", marginBottom: "1rem" }}
         >
-          CREATE POST
+          CREATE USERS
         </Button>
       </Form>
       <Button
@@ -64,10 +65,10 @@ function CreatePost() {
         variant="outline-success"
         style={{ width: "100%" }}
       >
-        ALL POSTS
+        ALL USERS
       </Button>
     </div>
   );
 }
 
-export default CreatePost;
+export default CreateUser;
