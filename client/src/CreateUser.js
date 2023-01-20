@@ -23,7 +23,6 @@ function CreateUser() {
   const createUser = (e) => {
     e.preventDefault();
     console.log(user)
-
     axios
       .post("/create", user)
       .then((res) => console.log(res))
